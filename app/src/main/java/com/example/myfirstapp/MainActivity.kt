@@ -2,7 +2,6 @@ package com.example.myfirstapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
@@ -10,10 +9,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var edName: EditText
     private lateinit var edEmail: EditText
+    private lateinit var edPwd : EditText
     private lateinit var btnAdd: Button
     private lateinit var btnView: Button
     private lateinit var btnUpdate : Button
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this,it.name,Toast.LENGTH_SHORT).show()
             edName.setText(it.name)
             edEmail.setText(it.email)
+            edPwd.setText(it.password)
             std = it
         }
         adapter?.setOnClickDeleteItem {
@@ -48,14 +50,15 @@ class MainActivity : AppCompatActivity() {
     private fun updateStudent() {
         val name = edName.text.toString()
         val email = edEmail.text.toString()
+        val password = edPwd.text.toString()
 
-        if (name == std?.name && email == std?.email){
+        if (name == std?.name && email == std?.email && password == std?.password){
             Toast.makeText(this,"Record not changed !!!",Toast.LENGTH_SHORT).show()
             return
         }
         if (std == null) return
 
-        val std = StudentModel(id = std!!.id, name = name, email = email)
+        val std = StudentModel(id = std!!.id, name = name, email = email, password = password)
         val status = sqLiteHelper.updateStudent(std)
         if(status > -1){
             clearEditText()
@@ -76,11 +79,13 @@ class MainActivity : AppCompatActivity() {
     private fun addStudent() {
         val name = edName.text.toString()
         val email = edEmail.text.toString()
+        val password = edPwd.text.toString()
 
-        if (name.isEmpty() || email.isEmpty()){
+        //Check
+        if (name.isEmpty() || email.isEmpty() || password.isEmpty()){
             Toast.makeText(this,"Please enter required fields !!!",Toast.LENGTH_SHORT).show()
         }else{
-            val std = StudentModel(name = name,email = email)
+            val std = StudentModel(name = name,email = email, password = password)
             val status = sqLiteHelper.insertStudent(std)
             //Check insert success or not success
             if(status > -1){
@@ -116,7 +121,9 @@ class MainActivity : AppCompatActivity() {
     private fun clearEditText() {
         edName.setText("")
         edEmail.setText("")
+        edPwd.setText("")
         edName.requestFocus()
+
     }
 
     private fun initRecyclerView(){
@@ -129,6 +136,7 @@ class MainActivity : AppCompatActivity() {
     private fun initView(){
         edName = findViewById(R.id.edName)
         edEmail = findViewById(R.id.edEmail)
+        edPwd = findViewById(R.id.edPwd)
         btnAdd = findViewById(R.id.btnAdd)
         btnView = findViewById(R.id.btnView)
         btnUpdate = findViewById(R.id.btnUpdate)

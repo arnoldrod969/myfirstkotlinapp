@@ -5,7 +5,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import androidx.recyclerview.widget.AdapterListUpdateCallback
 import androidx.recyclerview.widget.RecyclerView
 
 class StudentAdapter : RecyclerView.Adapter<StudentAdapter.StudentViewHolder>() {
@@ -47,12 +46,14 @@ class StudentAdapter : RecyclerView.Adapter<StudentAdapter.StudentViewHolder>() 
         private var id = view.findViewById<TextView>(R.id.tvId)
         private var name = view.findViewById<TextView>(R.id.tvName)
         private var email = view.findViewById<TextView>(R.id.tvEmail)
+        private var password = view.findViewById<TextView>(R.id.tvPassword)
         var btnDelete = view.findViewById<Button>(R.id.btnDelete)
 
         fun bindView(std: StudentModel){
             id.text = std.id.toString()
             name.text = std.name
             email.text = std.email
+            password.text = std.password
         }
     }
 }

@@ -24,11 +24,17 @@
             android:textSize="16sp"
             tools:text="Name"/>
         <TextView
-            android:id="@+id/tvEmail"
+        android:id="@+id/tvEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        tools:text="Email"/>
+        <TextView
+            android:id="@+id/tvPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            tools:text="Email"/>
+            tools:text="Password"/>
 
     </LinearLayout>
 
@@ -39,7 +45,7 @@
         android:layout_gravity="center_horizontal|center_vertical"
         android:background="#9C27B0"
         android:gravity="center_vertical"
-        android:paddingLeft="25dp"
+        android:paddingLeft="20dp"
         android:text="Delete"
         android:textAllCaps="false"
         android:textColor="#FFF" />
